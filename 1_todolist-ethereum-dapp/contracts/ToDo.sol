@@ -11,13 +11,30 @@ contract ToDo {
     bool done;
   }
 
-  Task[] tasks;
+  // Task[] tasks;
+  uint lastTaskId;
+  mapping(uint => Task) tasks;
+  uint[] taskIds;
 
-  function createTask(string memory _content, string memory _author) public {
-    tasks.push(Task(tasks.length, block.timestamp, _content, _author, false));
+  event TaskCreated(uint, uint, string, string, bool);
+
+  constructor() {
+    lastTaskId = 0;
   }
 
-  function getTask(uint _id) public view
+  function createTask(string memory _content, string memory _author) public {
+    // tasks.push(Task(tasks.length, block.timestamp, _content, _author, false));
+    lastTaskId++;
+    tasks[lastTaskId] = Task(lastTaskId, block.timestamp, _content, _author, false);
+    taskIds.push(lastTaskId);
+    emit TaskCreated(lastTaskId, block.timestamp, _content, _author, false);
+  }
+
+  function getTaskIds() public view returns(uint[] memory) {
+    return taskIds;
+  }
+
+  function getTask(uint _id) public view taskExists(_id)
     returns(
       uint, 
       uint, 
@@ -34,8 +51,14 @@ contract ToDo {
       );
     }
 
-  function getTasks() public view returns(Task[] memory) {
-    return tasks;
-  }
+  // function getTasks() public view returns(Task[] memory) {
+  //   return tasks;
+  // }
 
+  modifier taskExists(uint _id) {
+    if(tasks[_id].id == 0) {
+        revert();
+    }
+    _;
+  }
 }
