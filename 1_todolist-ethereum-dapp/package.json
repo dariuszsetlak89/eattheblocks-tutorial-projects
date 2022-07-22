@@ -1,0 +1,19 @@
+{
+  "name": "1_todolist-ethereum-dapp",
+  "version": "1.0.0",
+  "description": "A project based on the EatTheBlocks YouTube channel tutorial: ToDo List Ethereum Dapp Tutorial (Solidity/Javascript).   Link to the tutorial: https://www.youtube.com/playlist?list=PLbbtODcOYIoGfbrnfxgwva0Fktju0L449",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+	"start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
